@@ -38,6 +38,17 @@ namespace Vidly.Controllers
             return Content("id=" + id);
         }
 
+        [Route("movies")]
+        public ActionResult Index()
+        {
+            var movies = new List<Movie> {
+                new Movie { Id=1, Name = "Die Hard"},
+                new Movie { Id=2, Name = "Die Hard 2"},
+
+            };
+            return View(movies);
+        }
+
         public ActionResult Index(int? id, string sortedBy)
         {
             if (!id.HasValue)
