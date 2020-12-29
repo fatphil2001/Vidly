@@ -1,4 +1,4 @@
-﻿@model Vidly.ViewModels.CustomersViewModel
+﻿@model IEnumerable<Vidly.Models.Customer>
 
 @{
     ViewBag.Title = "Index";
@@ -7,18 +7,17 @@
 
 <h2>Customers</h2>
 
-@if (Model.Customers.Count == 0)
+@if (!Model.Any())
 {
-    <text>We have no customers...</text>
+    <text>Alas, we have no customers...</text>
 }
 else
 {
 <ul>
-    @foreach (var customer in Model.Customers)
+    @foreach (var customer in Model)
     {
-        @*<li><a href="customers/@customer.Id">@customer.Name</a></li>*@
         <li>
-            @Html.ActionLink(customer.Name, "Detail", new { id = customer.Id })
+            @Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id }, null)
         </li>
     }
     </ul>
