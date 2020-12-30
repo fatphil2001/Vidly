@@ -213,9 +213,34 @@
     <Compile Include="Migrations\202012301008476_MakeCustomerDOBNullable.Designer.cs">
       <DependentUpon>202012301008476_MakeCustomerDOBNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012301443445_AddGenreToMovie.cs" />
+    <Compile Include="Migrations\202012301443445_AddGenreToMovie.Designer.cs">
+      <DependentUpon>202012301443445_AddGenreToMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012301444451_AddGenreDefinitions.cs" />
+    <Compile Include="Migrations\202012301444451_AddGenreDefinitions.Designer.cs">
+      <DependentUpon>202012301444451_AddGenreDefinitions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012301455000_ChangeGenreIdToByte.cs" />
+    <Compile Include="Migrations\202012301455000_ChangeGenreIdToByte.Designer.cs">
+      <DependentUpon>202012301455000_ChangeGenreIdToByte.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012301457170_AddMoreGenreDefinitions.cs" />
+    <Compile Include="Migrations\202012301457170_AddMoreGenreDefinitions.Designer.cs">
+      <DependentUpon>202012301457170_AddMoreGenreDefinitions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012301554235_ModifyGenres.cs" />
+    <Compile Include="Migrations\202012301554235_ModifyGenres.Designer.cs">
+      <DependentUpon>202012301554235_ModifyGenres.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012301649130_AddDetailsToMovie.cs" />
+    <Compile Include="Migrations\202012301649130_AddDetailsToMovie.Designer.cs">
+      <DependentUpon>202012301649130_AddDetailsToMovie.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
@@ -373,6 +398,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Movies\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -411,6 +437,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012301008476_MakeCustomerDOBNullable.resx">
       <DependentUpon>202012301008476_MakeCustomerDOBNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012301443445_AddGenreToMovie.resx">
+      <DependentUpon>202012301443445_AddGenreToMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012301444451_AddGenreDefinitions.resx">
+      <DependentUpon>202012301444451_AddGenreDefinitions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012301455000_ChangeGenreIdToByte.resx">
+      <DependentUpon>202012301455000_ChangeGenreIdToByte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012301457170_AddMoreGenreDefinitions.resx">
+      <DependentUpon>202012301457170_AddMoreGenreDefinitions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012301554235_ModifyGenres.resx">
+      <DependentUpon>202012301554235_ModifyGenres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012301649130_AddDetailsToMovie.resx">
+      <DependentUpon>202012301649130_AddDetailsToMovie.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

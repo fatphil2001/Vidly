@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 using Vidly.Models;
 using Vidly.ViewModels;
@@ -8,7 +10,18 @@ namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
-        // GET: Movies
+        private ApplicationDbContext _context;
+
+        public MoviesController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
         public ActionResult Random()
         {
             var movie = new Movie() { Name = "Shrek!" };
@@ -26,11 +39,6 @@ namespace Vidly.Controllers
             };
 
             return View(viewModel);
-            
-            //return Content("Wawaaaa ");
-            //return HttpNotFound("Gone! Is no longer there...");
-            //return new EmptyResult();
-            //return RedirectToAction("Index", "Home", new { page = 1, toto = "happy" });
         }
 
         public ActionResult Edit(int id)
@@ -39,15 +47,22 @@ namespace Vidly.Controllers
         }
 
         [Route("movies")]
-        public ActionResult Index()
+        public ViewResult Index()
         {
-            var movies = new List<Movie> {
-                new Movie { Id=1, Name = "Die Hard"},
-                new Movie { Id=2, Name = "Die Hard 2"},
-
-            };
+            var movies = _context.Movies.Include(c => c.Genre).ToList();
             return View(movies);
         }
+
+        public ActionResult Details(int id)
+        {
+            var movie = _context.Movies.Include(m => m.Genre).SingleOrDefault(m => m.Id == id);
+
+            if (movie != null)
+                return View(movie);
+            else
+                return new HttpNotFoundResult();
+        }
+
 
         public ActionResult Index(int? id, string sortedBy)
         {
@@ -58,7 +73,7 @@ namespace Vidly.Controllers
                 sortedBy = "Name";
 
             //return Content($"The id={id} and sortedBy={sortedBy}");
-            return Content( string.Format("The id={0} and sortedBy={1}", id, sortedBy));
+            return Content(string.Format("The id={0} and sortedBy={1}", id, sortedBy));
         }
 
         [Route("movies/released/{year:regex(\\d{2})}/{month:regex(\\d{2}):range(1, 12)}")]
