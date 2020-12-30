@@ -5,23 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Detail</h2>
+<h2>@Html.DisplayFor(model => model.Name)</h2>
 
-<div>
-    <h4>Customer</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+<ul>
+    <li>Membership Type: @Html.DisplayFor(model => model.MembershipType.Name)</li>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+    @if (Model.DateOfBirth.HasValue)
+    {
+        <li>Date of birth: @String.Format("{0:d}", Model.DateOfBirth)</li>
+    }
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+</ul>
