@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.Mvc;
 using Vidly.Models;
@@ -90,21 +91,22 @@ namespace Vidly.Controllers
             if (movie == null)
                 return new HttpNotFoundResult();
 
-            return MovieFormView(title: "Edit", movie : movie);
+            MovieFormViewModel mfvm = new MovieFormViewModel(movie);
+
+            return MovieFormView(title: "Edit", movieFormViewModel: mfvm);
 
         }
 
-        private ActionResult MovieFormView(string title, Movie movie = null)
+        private ActionResult MovieFormView(string title, MovieFormViewModel movieFormViewModel = null)
         {
-            var viewModel = new MovieFormViewModel
-            {
-                Genres = GetGenresOrderedByAlpha(),
-                Movie = movie
-            };
+            if (movieFormViewModel == null) movieFormViewModel = new MovieFormViewModel();
+           
+            movieFormViewModel.Genres = GetGenresOrderedByAlpha();
 
             ViewBag.Title = title;
-            return View("MovieForm", viewModel);
+            return View("MovieForm", movieFormViewModel);
         }
+
 
         private IOrderedEnumerable<Genre> GetGenresOrderedByAlpha()
         {
@@ -112,22 +114,30 @@ namespace Vidly.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(Movie movie)
+        [ValidateAntiForgeryToken]
+        public ActionResult Save(MovieFormViewModel movievm)
         {
-            if (movie.Id == 0)
+            if (!ModelState.IsValid)
             {
+                return MovieFormView(movievm.Id == 0 ? "New" : "Edit", movievm);
+            }
+
+            Movie movie;
+            if (movievm.Id == 0)
+            {
+                movie = new Movie();
                 movie.AddedDate = DateTime.Now;
-                _context.Movies.Add(movie);
             }
             else
-            {
-                var movieInDb = _context.Movies.SingleOrDefault(mov => mov.Id == movie.Id);
-                movieInDb.Name = movie.Name;
-                movieInDb.ReleaseDate = movie.ReleaseDate;
-                movieInDb.AddedDate = DateTime.Now;
-                movieInDb.GenreId = movie.GenreId;
-                movieInDb.CurrentStock = movie.CurrentStock;
-            }
+                movie = _context.Movies.SingleOrDefault(mov => mov.Id == movievm.Id);
+
+            movie.Name = movievm.Name;
+            movie.ReleaseDate = movievm.ReleaseDate.Value;
+            movie.GenreId = movievm.GenreId.Value;
+            movie.CurrentStock = movievm.CurrentStock.Value;
+
+            if (movievm.Id == 0)
+                _context.Movies.Add(movie);
 
             _context.SaveChanges();
             return RedirectToAction("Index");

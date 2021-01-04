@@ -20,17 +20,19 @@ namespace Vidly.Models
         public byte GenreId { get; set; }
         
         [Required]
-        [DisplayFormat(DataFormatString = "{0:d}")]
-        [Display(Name = "Released")]
+        //[Display(Name = "Released")]
+        //[DisplayFormat(DataFormatString = "{0:d}")]
+        //[NoMoviesBefore1800]
         public DateTime ReleaseDate{ get; set; }
         
         [Required]
-        [DisplayFormat(DataFormatString = "{0:d}")]
-        [Display(Name = "Added")]
+        //[DisplayFormat(DataFormatString = "{0:d}")]
+        //[Display(Name = "Added")]
         public DateTime AddedDate{ get; set; }
         
         [Required]
-        [Display(Name = "Current Stock")]
+        //[Range(1,20)]
+        //[Display(Name = "Current Stock")]
         public short CurrentStock { get; set; }
     }
 }

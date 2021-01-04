@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Vidly.Models
 {
-    public class Min18YearsIfAMember : ValidationAttribute
+    public class Min18YearsIfAMemberAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
