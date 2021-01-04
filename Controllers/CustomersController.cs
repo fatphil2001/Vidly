@@ -29,13 +29,7 @@ namespace Vidly.Controllers
 
         public ActionResult Add()
         {
-            var membershipTypes = _context.MembershipTypes.ToList();
-            var viewModel = new CustomerFormViewModel
-            {
-                MembershipTypes = membershipTypes
-            };
-            ViewBag.Title = "Add";
-            return View("CustomerForm", viewModel);
+            return CustomerFormView("Add");
         }
 
         public ActionResult Edit(int id)
@@ -45,20 +39,31 @@ namespace Vidly.Controllers
             if (customer == null)
                 return HttpNotFound();
 
+            return CustomerFormView("Edit", customer);
+        }
+
+        private ActionResult CustomerFormView(string title, Customer customer = null)
+        {
+            if (customer == null) customer = new Customer();
+
             var viewModel = new CustomerFormViewModel
             {
                 Customer = customer,
                 MembershipTypes = _context.MembershipTypes.ToList(),
             };
-            ViewBag.Title = "Edit";
-            return View("CustomerForm",viewModel);
+            ViewBag.Title = title;
+            return View("CustomerForm", viewModel);
         }
 
-
-
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
+            if (!ModelState.IsValid)
+            {
+                return CustomerFormView(customer.Id == 0 ? "New": "Edit", customer);
+            } 
+
             if(customer.Id == 0)
                 _context.Customers.Add(customer);
             else
