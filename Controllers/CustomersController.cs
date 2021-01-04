@@ -34,6 +34,7 @@ namespace Vidly.Controllers
             {
                 MembershipTypes = membershipTypes
             };
+            ViewBag.Title = "Add";
             return View("CustomerForm", viewModel);
         }
 
@@ -49,6 +50,7 @@ namespace Vidly.Controllers
                 Customer = customer,
                 MembershipTypes = _context.MembershipTypes.ToList(),
             };
+            ViewBag.Title = "Edit";
             return View("CustomerForm",viewModel);
         }
 
