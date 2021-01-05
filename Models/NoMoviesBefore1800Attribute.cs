@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
 using Vidly.ViewModels;
 
@@ -11,15 +8,22 @@ namespace Vidly.Models
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var movie = (MovieFormViewModel)validationContext.ObjectInstance;
+            var movie = validationContext.ObjectInstance as Movie;
+            if (movie != null)
+                return CheckDateLaterThan1800(movie.ReleaseDate);
 
-            if (movie.ReleaseDate == null)
+            var movieFormViewModel = validationContext.ObjectInstance as MovieFormViewModel;
+            return CheckDateLaterThan1800(movieFormViewModel.ReleaseDate);
+        }
+
+        protected ValidationResult CheckDateLaterThan1800(DateTime? releaseDate)
+        {
+            if (releaseDate == null)
             {
-                return ValidationResult.Success;
-                // return new ValidationResult("Release date is required.");
+                return new ValidationResult("Release date is required.");
             }
 
-            if ( movie.ReleaseDate >= new DateTime(1800,1,1))
+            if (releaseDate >= new DateTime(1800, 1, 1))
                 return ValidationResult.Success;
 
             return new ValidationResult("Release date must be later that 1/1/1800.");

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
 using System.Web.Mvc;
 using Vidly.Models;
@@ -52,7 +51,7 @@ namespace Vidly.Controllers
 
         public ActionResult Details(int id)
         {
-            var movie = _context.Movies.Include(m => m.Genre).SingleOrDefault(m => m.Id == id);
+            var movie = GetMovieFromDB(id);
 
             if (movie != null)
                 return View(movie);
@@ -86,7 +85,7 @@ namespace Vidly.Controllers
 
         public ActionResult Edit(int id)
         {
-            var movie = _context.Movies.Include(m => m.Genre).SingleOrDefault(m => m.Id == id);
+            var movie = GetMovieFromDB(id);
 
             if (movie == null)
                 return new HttpNotFoundResult();
@@ -100,7 +99,7 @@ namespace Vidly.Controllers
         private ActionResult MovieFormView(string title, MovieFormViewModel movieFormViewModel = null)
         {
             if (movieFormViewModel == null) movieFormViewModel = new MovieFormViewModel();
-           
+
             movieFormViewModel.Genres = GetGenresOrderedByAlpha();
 
             ViewBag.Title = title;
@@ -115,33 +114,34 @@ namespace Vidly.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(MovieFormViewModel movievm)
+        public ActionResult Save(MovieFormViewModel movieFormViewModel)
         {
             if (!ModelState.IsValid)
             {
-                return MovieFormView(movievm.Id == 0 ? "New" : "Edit", movievm);
+                return MovieFormView(movieFormViewModel.Id == 0 ? "New" : "Edit", movieFormViewModel);
             }
+
 
             Movie movie;
-            if (movievm.Id == 0)
+            if (movieFormViewModel.Id == 0)
             {
-                movie = new Movie();
-                movie.AddedDate = DateTime.Now;
+                movie = new Movie(DateTime.Now);
+                MovieFormViewModel.PopulateMovieFromViewModel(movieFormViewModel, movie);
+                _context.Movies.Add(movie);
             }
             else
-                movie = _context.Movies.SingleOrDefault(mov => mov.Id == movievm.Id);
-
-            movie.Name = movievm.Name;
-            movie.ReleaseDate = movievm.ReleaseDate.Value;
-            movie.GenreId = movievm.GenreId.Value;
-            movie.CurrentStock = movievm.CurrentStock.Value;
-
-            if (movievm.Id == 0)
-                _context.Movies.Add(movie);
+            {
+                movie = GetMovieFromDB(movieFormViewModel.Id);
+                MovieFormViewModel.PopulateMovieFromViewModel(movieFormViewModel, movie);
+            }
 
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
 
+        private Movie GetMovieFromDB(int id)
+        {
+            return _context.Movies.Include(m => m.Genre).SingleOrDefault(mov => mov.Id == id);
+        }
     }
 }

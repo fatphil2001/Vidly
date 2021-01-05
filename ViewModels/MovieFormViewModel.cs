@@ -17,10 +17,9 @@ namespace Vidly.ViewModels
         [Required]
         public byte? GenreId { get; set; }
 
-        [Required(ErrorMessage = "REQ")]
-        [Display(Name = "Released")]
-        [DisplayFormat(DataFormatString = "{0:d}")]
-        [NoMoviesBefore1800(ErrorMessage = "Et voila")]
+        [Required]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [NoMoviesBefore1800]
         public DateTime? ReleaseDate { get; set; }
 
         [Required]
@@ -44,8 +43,16 @@ namespace Vidly.ViewModels
                 CurrentStock = movie.CurrentStock;
                 GenreId = movie.GenreId;
             }
-            //else
-            //    Id = 0;
+            else
+                Id = 0;
+        }
+
+        public static void PopulateMovieFromViewModel(MovieFormViewModel movieFormViewModel, Movie movie)
+        {
+            movie.Name = movieFormViewModel.Name;
+            movie.ReleaseDate = movieFormViewModel.ReleaseDate.Value;
+            movie.GenreId = movieFormViewModel.GenreId.Value;
+            movie.CurrentStock = movieFormViewModel.CurrentStock.Value;
         }
 
     }
