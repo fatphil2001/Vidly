@@ -20,7 +20,8 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Customer.DateOfBirth)
-        @Html.TextBoxFor(m => m.Customer.DateOfBirth, "{0:d}", new { @class = "form-control" })
+        @Html.EditorFor(m => m.Customer.DateOfBirth, "{0:d}", new { htmlAttributes = new { @class = "form-control", placeholder = "Date Of Birth", @readonly = "true" } })
+
         @Html.ValidationMessageFor(m => m.Customer.DateOfBirth)
     </div>
     <div class="form-check">
@@ -36,4 +37,7 @@
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqueryui")
+    @Scripts.Render("~/scripts/custom/date.js")
 }
