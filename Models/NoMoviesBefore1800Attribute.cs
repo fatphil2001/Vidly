@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Vidly.Dtos;
 using Vidly.ViewModels;
 
 namespace Vidly.Models
@@ -11,6 +12,10 @@ namespace Vidly.Models
             var movie = validationContext.ObjectInstance as Movie;
             if (movie != null)
                 return CheckDateLaterThan1800(movie.ReleaseDate);
+
+            var movieDto = validationContext.ObjectInstance as MovieDto;
+            if (movieDto != null)
+                return CheckDateLaterThan1800(movieDto.ReleaseDate);
 
             var movieFormViewModel = validationContext.ObjectInstance as MovieFormViewModel;
             return CheckDateLaterThan1800(movieFormViewModel.ReleaseDate);
