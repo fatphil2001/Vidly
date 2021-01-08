@@ -34,3 +34,8 @@ textarea {
 .validation-summary-errors span {
     color: red;
 }
+
+button.js-delete {
+    color: #ff6a00;
+    text-transform: none;
+}
