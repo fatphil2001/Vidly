@@ -45,8 +45,10 @@ namespace Vidly.Controllers
         [Route("movies")]
         public ViewResult Index()
         {
-            var movies = _context.Movies.Include(c => c.Genre).ToList();
-            return View(movies);
+            if (User.IsInRole(RoleName.CanManageMovies))
+                return View("List");
+
+            return View("ListReadOnly");
         }
 
         public ActionResult Details(int id)
@@ -78,11 +80,13 @@ namespace Vidly.Controllers
             return Content(year + "/" + month);
         }
 
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult Add()
         {
             return MovieFormView(title: "Add");
         }
 
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult Edit(int id)
         {
             var movie = GetMovieFromDB(id);
@@ -96,24 +100,9 @@ namespace Vidly.Controllers
 
         }
 
-        private ActionResult MovieFormView(string title, MovieFormViewModel movieFormViewModel = null)
-        {
-            if (movieFormViewModel == null) movieFormViewModel = new MovieFormViewModel();
-
-            movieFormViewModel.Genres = GetGenresOrderedByAlpha();
-
-            ViewBag.Title = title;
-            return View("MovieForm", movieFormViewModel);
-        }
-
-
-        private IOrderedEnumerable<Genre> GetGenresOrderedByAlpha()
-        {
-            return _context.Genres.ToList().OrderBy(g => g.Name);
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult Save(MovieFormViewModel movieFormViewModel)
         {
             if (!ModelState.IsValid)
@@ -137,6 +126,22 @@ namespace Vidly.Controllers
 
             _context.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        private ActionResult MovieFormView(string title, MovieFormViewModel movieFormViewModel = null)
+        {
+            if (movieFormViewModel == null) movieFormViewModel = new MovieFormViewModel();
+
+            movieFormViewModel.Genres = GetGenresOrderedByAlpha();
+
+            ViewBag.Title = title;
+            return View("MovieForm", movieFormViewModel);
+        }
+
+
+        private IOrderedEnumerable<Genre> GetGenresOrderedByAlpha()
+        {
+            return _context.Genres.ToList().OrderBy(g => g.Name);
         }
 
         private Movie GetMovieFromDB(int id)
