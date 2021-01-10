@@ -4,7 +4,7 @@
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            @Html.ActionLink("Vidley", "Index", "Home", new { area = "" },
+            @Html.ActionLink(HttpContext.Current.Application["AppName"].ToString(), "Index", "Home", new { area = "" },
            new { @class = "navbar-brand" })
         </div>
         <div class="navbar-collapse collapse">

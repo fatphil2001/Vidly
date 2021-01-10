@@ -14,6 +14,9 @@ namespace Vidly
     {
         protected void Application_Start()
         {
+            var e = "Voodoo";
+            Application["AppName"] = e;
+
             Mapper.Initialize(c => c.AddProfile<MappingProfile>());
             GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
