@@ -9,14 +9,69 @@
     @* Zencoding: div.form-group>label+input[type="text"].form-control*@
     <div class="form-group">
         <label>Customer</label>
-        <input type="text" value="" class="form-control" />
+        <input id="customer" type="text" value="" class="form-control" />
     </div>
 
     <div class="form-group">
         <label>Movie</label>
-        <input type="text" value="" class="form-control" />
+        <input id="movie" type="text" value="" class="form-control" />
     </div>
 
     <button class="btn btn-primary">Submit</button>
 </form>
 
+@section scripts
+{
+    <script>
+        $(function () {
+
+            var vm = {};
+
+            var typeaheadSettings = {
+                minLength: 3,
+                highlight: true
+            };
+
+            var customers = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                // prefetch: '../data/films/post_1960.json',
+                remote: {
+                    url: '/api/customers?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#customer').typeahead(typeaheadSettings, {
+                name: 'customer',
+                display: 'name',
+                source: customers
+            }).on("typeahead:select", function (e, customer) {
+                vm.customerId = customer.id;
+                console.log('vm.customerId = ' + vm.customerId);
+            });
+
+
+            var movies = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                // prefetch: '../data/films/post_1960.json',
+                remote: {
+                    url: '/api/movies?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+
+            $('#movie').typeahead(typeaheadSettings, {
+                name: 'movie',
+                display: 'name',
+                source: movies
+            }).on("typeahead:select", function (e, movie) {
+                vm.movieId = movie.id;
+                console.log('vm.movieId = ' + vm.movieId);
+            });
+
+        });
+    </script>
+}
