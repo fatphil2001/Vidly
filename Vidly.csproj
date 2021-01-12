@@ -201,7 +201,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\CustomersController.cs" />
     <Compile Include="Controllers\Api\MoviesController.cs" />
-    <Compile Include="Controllers\Api\RentalsController.cs" />
+    <Compile Include="Dtos\NewRentalDto.cs" />
+    <Compile Include="Controllers\Api\NewRentalsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -286,6 +287,10 @@
     <Compile Include="Migrations\202101110904207_AddTelephoneNumberToUser.Designer.cs">
       <DependentUpon>202101110904207_AddTelephoneNumberToUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101121030575_AddNewRental.cs" />
+    <Compile Include="Migrations\202101121030575_AddNewRental.Designer.cs">
+      <DependentUpon>202101121030575_AddNewRental.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -295,6 +300,7 @@
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
+    <Compile Include="Models\Rental.cs" />
     <Compile Include="Models\NoMoviesBefore1800Attribute.cs" />
     <Compile Include="Models\Min18YearsIfAMemberAttribute.cs" />
     <Compile Include="Models\Movie.cs" />
@@ -806,6 +812,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101110904207_AddTelephoneNumberToUser.resx">
       <DependentUpon>202101110904207_AddTelephoneNumberToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101121030575_AddNewRental.resx">
+      <DependentUpon>202101121030575_AddNewRental.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
