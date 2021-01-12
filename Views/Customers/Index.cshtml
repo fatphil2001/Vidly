@@ -10,6 +10,15 @@
     @Html.ActionLink("New Customer", "Add", null, new { @class = "btn btn-primary" })
 </p>
 
+
+<ul>
+    @foreach (var customer in Model)
+    {
+    <li>
+        @customer.Id + " " + @customer.MembershipType.Name
+    </li>
+    }
+</ul>
 <table id="customers" class="table table-bordered table-hover">
     <thead>
         <tr>
@@ -21,15 +30,15 @@
     </thead>
     <tbody>
         @*@foreach (var customer in Model)
-        {
-            <tr>
-                <td>@Html.ActionLink(customer.Name, "Edit", "Customers", new { id = customer.Id }, null)</td>
-                <td>@customer.MembershipType.Name</td>
-                <td>
-                    <button data-customer-id="@customer.Id" class="btn btn-link js-delete">Delete</button>
-                </td>
-            </tr>
-        }*@
+            {
+                <tr>
+                    <td>@Html.ActionLink(customer.Name, "Edit", "Customers", new { id = customer.Id }, null)</td>
+                    <td>@customer.MembershipType.Name</td>
+                    <td>
+                        <button data-customer-id="@customer.Id" class="btn btn-link js-delete">Delete</button>
+                    </td>
+                </tr>
+            }*@
     </tbody>
 </table>
 
@@ -59,11 +68,11 @@
 
                         }
                     }
-                    
+
                 ]
             });
 
-            $("#customers").on("click",".js-delete", function () {
+            $("#customers").on("click", ".js-delete", function () {
                 var button = $(this);
                 bootbox.confirm("Are you sure you want to delete this customer?", function (result) {
                     if (result) {
