@@ -34,8 +34,8 @@ namespace Vidly.Models
 
         [Required]
         //[Range(1,20)]
-        [Display(Name = "Available Stock")]
-        public short AvailableStock { get; set; }
+        [Display(Name = "Number Available")]
+        public short NumberAvailable { get; set; }
 
 
         public Movie(DateTime added)

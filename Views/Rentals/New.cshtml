@@ -5,7 +5,7 @@
 
 <h2>New Rental Form</h2>
 
-<form>
+<form id="newRental">
     @* Zencoding: div.form-group>label+input[type="text"].form-control*@
     <div class="form-group">
         <label>Customer</label>
@@ -87,7 +87,21 @@
                 $("#movies").append("<li class='list-group-item'>" + movie.name + "</li>");
                 $("#movie").typeahead("val", "");
                 vm.movieIds.push(movie.id);
-                console.log('vm.movieId = ' + vm.movieId);
+                console.log('vm.movieId = ' + movie.id);
+            });
+
+            $("#newRental").submit(function (e) {
+                e.preventDefault();
+                console.log("submit");
+                $.post({
+                    url: "/api/newRentals",
+                    data: vm
+                }).done(function () {
+                    console.log('done');
+                }).fail(function () {
+
+                });
+
             });
 
         });
