@@ -9,12 +9,26 @@
     @* Zencoding: div.form-group>label+input[type="text"].form-control*@
     <div class="form-group">
         <label>Customer</label>
-        <input id="customer" type="text" value="" class="form-control" />
+        <div class="tt-container">
+            <input id="customer" type="text" value="" class="form-control" />
+        </div>
     </div>
 
     <div class="form-group">
         <label>Movie</label>
-        <input id="movie" type="text" value="" class="form-control" />
+        <div class="tt-container">
+            <input id="movie" type="text" value="" class="form-control" />
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @* div.row>div.col_md-4.col-sm-4*@
+        <div class="row">
+            <div class="col_md-4 col-sm-4">
+                <ul id="movies" class="list-group"></ul>
+            </div>
+        </div>
     </div>
 
     <button class="btn btn-primary">Submit</button>
@@ -25,7 +39,9 @@
     <script>
         $(function () {
 
-            var vm = {};
+            var vm = {
+                movieIds: []
+            };
 
             var typeaheadSettings = {
                 minLength: 3,
@@ -68,7 +84,9 @@
                 display: 'name',
                 source: movies
             }).on("typeahead:select", function (e, movie) {
-                vm.movieId = movie.id;
+                $("#movies").append("<li class='list-group-item'>" + movie.name + "</li>");
+                $("#movie").typeahead("val", "");
+                vm.movieIds.push(movie.id);
                 console.log('vm.movieId = ' + vm.movieId);
             });
 
