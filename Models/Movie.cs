@@ -29,8 +29,14 @@ namespace Vidly.Models
         
         [Required]
         //[Range(1,20)]
-        //[Display(Name = "Current Stock")]
+        [Display(Name = "Current Stock")]
         public short CurrentStock { get; set; }
+
+        [Required]
+        //[Range(1,20)]
+        [Display(Name = "Available Stock")]
+        public short AvailableStock { get; set; }
+
 
         public Movie(DateTime added)
         {

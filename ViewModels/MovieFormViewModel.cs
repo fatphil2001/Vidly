@@ -27,6 +27,10 @@ namespace Vidly.ViewModels
         [Display(Name = "Current Stock")]
         public short? CurrentStock { get; set; }
 
+        [Required]
+        [Range(1, 20)]
+        [Display(Name = "Available Stock")]
+        public short? AvailableStock { get; set; }
 
         public MovieFormViewModel()
         {
@@ -41,6 +45,7 @@ namespace Vidly.ViewModels
                 Name = movie.Name;
                 ReleaseDate = movie.ReleaseDate;
                 CurrentStock = movie.CurrentStock;
+                AvailableStock = movie.AvailableStock;
                 GenreId = movie.GenreId;
             }
             else
@@ -53,6 +58,7 @@ namespace Vidly.ViewModels
             movie.ReleaseDate = movieFormViewModel.ReleaseDate.Value;
             movie.GenreId = movieFormViewModel.GenreId.Value;
             movie.CurrentStock = movieFormViewModel.CurrentStock.Value;
+            movie.AvailableStock = movieFormViewModel.AvailableStock.Value;
         }
 
     }
