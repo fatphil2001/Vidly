@@ -45,7 +45,7 @@ namespace Vidly.ViewModels
                 Name = movie.Name;
                 ReleaseDate = movie.ReleaseDate;
                 CurrentStock = movie.CurrentStock;
-                AvailableStock = movie.AvailableStock;
+                AvailableStock = movie.NumberAvailable;
                 GenreId = movie.GenreId;
             }
             else
@@ -58,7 +58,7 @@ namespace Vidly.ViewModels
             movie.ReleaseDate = movieFormViewModel.ReleaseDate.Value;
             movie.GenreId = movieFormViewModel.GenreId.Value;
             movie.CurrentStock = movieFormViewModel.CurrentStock.Value;
-            movie.AvailableStock = movieFormViewModel.AvailableStock.Value;
+            movie.NumberAvailable = movieFormViewModel.AvailableStock.Value;
         }
 
     }

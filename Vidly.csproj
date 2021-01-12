@@ -296,6 +296,10 @@
     <Compile Include="Migrations\202101121300523_AddAvailableStockToMovie.Designer.cs">
       <DependentUpon>202101121300523_AddAvailableStockToMovie.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101121744180_RenameMoviesAvailable.cs" />
+    <Compile Include="Migrations\202101121744180_RenameMoviesAvailable.Designer.cs">
+      <DependentUpon>202101121744180_RenameMoviesAvailable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -831,6 +835,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101121300523_AddAvailableStockToMovie.resx">
       <DependentUpon>202101121300523_AddAvailableStockToMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101121744180_RenameMoviesAvailable.resx">
+      <DependentUpon>202101121744180_RenameMoviesAvailable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -37,11 +37,11 @@ namespace Vidly.Controllers.Api
             foreach (var movie in movies)
             {
                 // create a new rental record.
-                if (movie.AvailableStock == 0)
+                if (movie.NumberAvailable == 0)
                     return BadRequest("Movie out of stock");
 
 
-                movie.AvailableStock--;
+                movie.NumberAvailable--;
 
                 Rental rental = new Rental() { Movie = movie, Customer = customer, DateRented = DateTime.Now };
                 _context.Rentals.Add(rental);
