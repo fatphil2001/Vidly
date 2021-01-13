@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -50,6 +51,15 @@
     <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework6.Npgsql, Version=6.4.1.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework6.Npgsql.6.4.1\lib\net45\EntityFramework6.Npgsql.dll</HintPath>
+    </Reference>
     <Reference Include="Glimpse.Ado, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Glimpse.Ado.1.7.3\lib\net45\Glimpse.Ado.dll</HintPath>
     </Reference>
@@ -66,11 +76,30 @@
       <HintPath>packages\Glimpse.Mvc5.1.5.3\lib\net45\Glimpse.Mvc5.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Npgsql, Version=4.0.10.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>packages\Npgsql.4.0.10\lib\net451\Npgsql.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.4.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.3\lib\netstandard1.1\System.Memory.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.2\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -141,12 +170,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -216,89 +239,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202012292002248_InitialModel.cs" />
-    <Compile Include="Migrations\202012292002248_InitialModel.Designer.cs">
-      <DependentUpon>202012292002248_InitialModel.cs</DependentUpon>
+    <Compile Include="Migrations\202101132056526_InitModel.cs" />
+    <Compile Include="Migrations\202101132056526_InitModel.designer.cs">
+      <DependentUpon>202101132056526_InitModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202012292016053_AddIsSubscribedToCustomer.cs" />
-    <Compile Include="Migrations\202012292016053_AddIsSubscribedToCustomer.Designer.cs">
-      <DependentUpon>202012292016053_AddIsSubscribedToCustomer.cs</DependentUpon>
+    <Compile Include="Migrations\202101132112188_PopulateMembershipTypes.cs" />
+    <Compile Include="Migrations\202101132112188_PopulateMembershipTypes.designer.cs">
+      <DependentUpon>202101132112188_PopulateMembershipTypes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202012292020526_AddMembershipType.cs" />
-    <Compile Include="Migrations\202012292020526_AddMembershipType.Designer.cs">
-      <DependentUpon>202012292020526_AddMembershipType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012292036060_PopulateMembershipTypes.cs" />
-    <Compile Include="Migrations\202012292036060_PopulateMembershipTypes.Designer.cs">
-      <DependentUpon>202012292036060_PopulateMembershipTypes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012292046123_ApplyAnnotationsToCustomerName.cs" />
-    <Compile Include="Migrations\202012292046123_ApplyAnnotationsToCustomerName.Designer.cs">
-      <DependentUpon>202012292046123_ApplyAnnotationsToCustomerName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012292138248_AddMembershipTypeName.cs" />
-    <Compile Include="Migrations\202012292138248_AddMembershipTypeName.Designer.cs">
-      <DependentUpon>202012292138248_AddMembershipTypeName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012292139025_PopulateMembershipTypeNames.cs" />
-    <Compile Include="Migrations\202012292139025_PopulateMembershipTypeNames.Designer.cs">
-      <DependentUpon>202012292139025_PopulateMembershipTypeNames.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012301003376_AddDOBToCustomer.cs" />
-    <Compile Include="Migrations\202012301003376_AddDOBToCustomer.Designer.cs">
-      <DependentUpon>202012301003376_AddDOBToCustomer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012301008476_MakeCustomerDOBNullable.cs" />
-    <Compile Include="Migrations\202012301008476_MakeCustomerDOBNullable.Designer.cs">
-      <DependentUpon>202012301008476_MakeCustomerDOBNullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012301443445_AddGenreToMovie.cs" />
-    <Compile Include="Migrations\202012301443445_AddGenreToMovie.Designer.cs">
-      <DependentUpon>202012301443445_AddGenreToMovie.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012301444451_AddGenreDefinitions.cs" />
-    <Compile Include="Migrations\202012301444451_AddGenreDefinitions.Designer.cs">
-      <DependentUpon>202012301444451_AddGenreDefinitions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012301455000_ChangeGenreIdToByte.cs" />
-    <Compile Include="Migrations\202012301455000_ChangeGenreIdToByte.Designer.cs">
-      <DependentUpon>202012301455000_ChangeGenreIdToByte.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012301457170_AddMoreGenreDefinitions.cs" />
-    <Compile Include="Migrations\202012301457170_AddMoreGenreDefinitions.Designer.cs">
-      <DependentUpon>202012301457170_AddMoreGenreDefinitions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012301554235_ModifyGenres.cs" />
-    <Compile Include="Migrations\202012301554235_ModifyGenres.Designer.cs">
-      <DependentUpon>202012301554235_ModifyGenres.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012301649130_AddDetailsToMovie.cs" />
-    <Compile Include="Migrations\202012301649130_AddDetailsToMovie.Designer.cs">
-      <DependentUpon>202012301649130_AddDetailsToMovie.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101101542495_SeedUsers.cs" />
-    <Compile Include="Migrations\202101101542495_SeedUsers.Designer.cs">
-      <DependentUpon>202101101542495_SeedUsers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101101924472_AddDrivingLicenseToUser.cs" />
-    <Compile Include="Migrations\202101101924472_AddDrivingLicenseToUser.Designer.cs">
-      <DependentUpon>202101101924472_AddDrivingLicenseToUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101110904207_AddTelephoneNumberToUser.cs" />
-    <Compile Include="Migrations\202101110904207_AddTelephoneNumberToUser.Designer.cs">
-      <DependentUpon>202101110904207_AddTelephoneNumberToUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101121030575_AddNewRental.cs" />
-    <Compile Include="Migrations\202101121030575_AddNewRental.Designer.cs">
-      <DependentUpon>202101121030575_AddNewRental.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101121300523_AddAvailableStockToMovie.cs" />
-    <Compile Include="Migrations\202101121300523_AddAvailableStockToMovie.Designer.cs">
-      <DependentUpon>202101121300523_AddAvailableStockToMovie.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101121744180_RenameMoviesAvailable.cs" />
-    <Compile Include="Migrations\202101121744180_RenameMoviesAvailable.Designer.cs">
-      <DependentUpon>202101121744180_RenameMoviesAvailable.cs</DependentUpon>
+    <Compile Include="Migrations\202101132126021_PopulateGenres.cs" />
+    <Compile Include="Migrations\202101132126021_PopulateGenres.designer.cs">
+      <DependentUpon>202101132126021_PopulateGenres.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -783,75 +734,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202012292002248_InitialModel.resx">
-      <DependentUpon>202012292002248_InitialModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012292016053_AddIsSubscribedToCustomer.resx">
-      <DependentUpon>202012292016053_AddIsSubscribedToCustomer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012292020526_AddMembershipType.resx">
-      <DependentUpon>202012292020526_AddMembershipType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012292036060_PopulateMembershipTypes.resx">
-      <DependentUpon>202012292036060_PopulateMembershipTypes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012292046123_ApplyAnnotationsToCustomerName.resx">
-      <DependentUpon>202012292046123_ApplyAnnotationsToCustomerName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012292138248_AddMembershipTypeName.resx">
-      <DependentUpon>202012292138248_AddMembershipTypeName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012292139025_PopulateMembershipTypeNames.resx">
-      <DependentUpon>202012292139025_PopulateMembershipTypeNames.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012301003376_AddDOBToCustomer.resx">
-      <DependentUpon>202012301003376_AddDOBToCustomer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012301008476_MakeCustomerDOBNullable.resx">
-      <DependentUpon>202012301008476_MakeCustomerDOBNullable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012301443445_AddGenreToMovie.resx">
-      <DependentUpon>202012301443445_AddGenreToMovie.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012301444451_AddGenreDefinitions.resx">
-      <DependentUpon>202012301444451_AddGenreDefinitions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012301455000_ChangeGenreIdToByte.resx">
-      <DependentUpon>202012301455000_ChangeGenreIdToByte.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012301457170_AddMoreGenreDefinitions.resx">
-      <DependentUpon>202012301457170_AddMoreGenreDefinitions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012301554235_ModifyGenres.resx">
-      <DependentUpon>202012301554235_ModifyGenres.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012301649130_AddDetailsToMovie.resx">
-      <DependentUpon>202012301649130_AddDetailsToMovie.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101101542495_SeedUsers.resx">
-      <DependentUpon>202101101542495_SeedUsers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101101924472_AddDrivingLicenseToUser.resx">
-      <DependentUpon>202101101924472_AddDrivingLicenseToUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101110904207_AddTelephoneNumberToUser.resx">
-      <DependentUpon>202101110904207_AddTelephoneNumberToUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101121030575_AddNewRental.resx">
-      <DependentUpon>202101121030575_AddNewRental.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101121300523_AddAvailableStockToMovie.resx">
-      <DependentUpon>202101121300523_AddAvailableStockToMovie.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101121744180_RenameMoviesAvailable.resx">
-      <DependentUpon>202101121744180_RenameMoviesAvailable.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202101132056526_InitModel.resx">
+      <DependentUpon>202101132056526_InitModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101132112188_PopulateMembershipTypes.resx">
+      <DependentUpon>202101132112188_PopulateMembershipTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101132126021_PopulateGenres.resx">
+      <DependentUpon>202101132126021_PopulateGenres.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -887,7 +784,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
